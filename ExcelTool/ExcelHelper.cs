@@ -11,52 +11,6 @@ namespace ExcelTool
 {
     public class ExcelHelper
     {
-        //static DataTable ReadFromExcelFile(string filePath)
-        //{
-        //    DataTable dt = new DataTable();
-        //    IWorkbook wk = null;
-        //    string extension = Path.GetExtension(filePath);
-        //    try
-        //    {
-        //        FileStream fs = File.OpenRead(filePath);
-        //        //if (extension.Equals(".xls"))
-        //        //{
-        //        //    //把xls文件中的数据写入wk中
-        //        //    wk = new HSSFWorkbook(fs);
-        //        //}
-        //        //else
-        //        //{
-        //        if (extension.Equals(".xlsx"))  //这里只考虑xlsx的情况
-        //            //把xlsx文件中的数据写入wk中
-        //            wk = new XSSFWorkbook(fs);
-        //        //}
-
-        //        fs.Close();
-        //        fs.Dispose();
-        //        ISheet sheet = wk.GetSheetAt(0);
-        //        IRow row = sheet.GetRow(0);  //读取当前行数据
-        //        //LastRowNum 是当前表的总行数-1（注意）
-        //        for (int i = 0; i <= sheet.LastRowNum; i++)
-        //        {
-        //            row = sheet.GetRow(i);
-        //            if (row != null)
-        //            {
-        //                for (int j = 0; j < row.LastCellNum; j++)
-        //                {
-        //                    string value = row.GetCell(j).ToString();
-        //                    Console.Write(value.ToString() + " ");
-        //                }
-        //                Console.WriteLine("\n");
-        //            }
-        //        }
-        //        return dt;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        ConsoleHelper.WriteErrorLine(e.Message);
-        //    }
-        //}
-
         static DataTable ExcelHeader(string fileName)
         {
             try
@@ -83,6 +37,18 @@ namespace ExcelTool
                         dt.Columns.Add(dc);
                     }
                 }
+                row = sheet.GetRow(1);//读取注释
+                if (row != null)
+                {
+                    DataRow dr = dt.NewRow();
+                    for (int j = 0; j < row.LastCellNum; j++)
+                    {
+                        var cellValue = row.GetCell(j);
+                        string cellValueStr = cellValue == null ? "" : cellValue.ToString();
+                        dr[j] = cellValueStr;
+                    }
+                    dt.Rows.Add(dr);
+                }
                 fs.Close();
                 fs.Dispose();
                 return dt;
@@ -108,6 +74,11 @@ namespace ExcelTool
                 IRow row = sheet.GetRow(0);  //读取当前第一行的数据
                 for (int j = 0; j < row.LastCellNum; j++)
                 {
+                    var cellValue = row.GetCell(j);
+                    if (cellValue == null)
+                    {
+                        throw new Exception($"文件:{fileName}第一行存在空类型配置，请检查");
+                    }
                     string value = row.GetCell(j).ToString().Replace(" ", "").Replace("\"", "");
                     var array = value.Split(',');
                     if (array.Length != 2)
@@ -124,7 +95,7 @@ namespace ExcelTool
                 for (int i = 2; i <= sheet.LastRowNum; i++)
                 {
                     row = sheet.GetRow(i);
-                    DataRow dr = dt.NewRow();
+                    var dr = dt.NewRow();
                     for (int j = 0; j < row.LastCellNum; j++)
                     {
                         var cellValue = row.GetCell(j);
@@ -169,7 +140,6 @@ namespace ExcelTool
                         datas.Add(t);
                     }
                 }
-
                 var binaryFilePath = Path.Combine(fileInfo.DirectoryName, $"{excelName}.bytes");
                 FileManager.WriteBinaryDatasToFile(binaryFilePath, datas);
                 return true;
@@ -194,6 +164,15 @@ namespace ExcelTool
                 var excelName = fileInfo.Name.Remove(fileInfo.Name.IndexOf(".xlsx"));
                 var dt = ExcelHeader(fileName);
                 var headers = dt.Headers();
+                List<string> notesStr = new List<string>();
+                if (dt.Rows != null && dt.Rows.Count > 0)
+                {
+                    var notes = dt.Rows[0];
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        notesStr.Add(notes[i].ToString());
+                    }
+                }
                 //前面是字段，后面是类型  vector是3个float  [1.1,2.2,3.3]
                 //foreach (var header in headers)
                 //{
@@ -205,20 +184,23 @@ namespace ExcelTool
                 sb.Append("[Serializable]\n");
                 sb.Append($"public class {excelName} : IBinarySerializable\n");
                 sb.Append("{\n");
-                foreach (var header in headers)
+                for (int i = 0; i < headers.Count; i++)
                 {
-                    var type = header.Item2.ToLower();
+                    sb.Append($"\t/// <summary>\n");
+                    sb.Append($"\t/// {notesStr[i]}\n");
+                    sb.Append($"\t/// </summary>\n");
+                    var type = headers[i].Item2.ToLower();
                     if (type.Equals("vector"))
                     {
-                        sb.Append(string.Format("\tpublic List<float> {0}", header.Item1));
+                        sb.Append(string.Format("\tpublic List<float> {0}", headers[i].Item1));
                     }
                     else if (type.Equals("list"))
                     {
-                        sb.Append(string.Format("\tpublic List<List<float>> {0}", header.Item1));
+                        sb.Append(string.Format("\tpublic List<List<float>> {0}", headers[i].Item1));
                     }
                     else
                     {
-                        sb.Append(string.Format("\tpublic {0} {1}", header.Item2.ToLower(), header.Item1));
+                        sb.Append(string.Format("\tpublic {0} {1}", headers[i].Item2.ToLower(), headers[i].Item1));
                     }
                     sb.Append(" { get; set; }\n");
                 }
