@@ -11,11 +11,29 @@ using System.Linq;
 [Serializable]
 public class avatarguideTest : IBinarySerializable
 {
+	/// <summary>
+	/// 序号
+	/// </summary>
 	public int Id { get; set; }
+	/// <summary>
+	/// gender
+	/// </summary>
 	public string gender { get; set; }
+	/// <summary>
+	/// age
+	/// </summary>
 	public float age { get; set; }
+	/// <summary>
+	/// bValue
+	/// </summary>
 	public bool bValue { get; set; }
+	/// <summary>
+	/// 模型相对中心偏差值
+	/// </summary>
 	public List<float> vector { get; set; }
+	/// <summary>
+	/// 格子
+	/// </summary>
 	public List<List<float>> Grid { get; set; }
 
 	public void DeSerialize(BinaryReader reader)
