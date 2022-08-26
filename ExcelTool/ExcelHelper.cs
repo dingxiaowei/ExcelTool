@@ -63,7 +63,7 @@ namespace ExcelTool
                 {
                     var row = sheet.GetRow(i);
                     var tableExcelRow = new TableExcelRow();
-                    for (int j = 0; j <= row.LastCellNum; j++)
+                    for (int j = 0; j < excelHeader.Count; j++)
                     {
                         var cellValue = row.GetCell(j);
                         if (cellValue != null)
