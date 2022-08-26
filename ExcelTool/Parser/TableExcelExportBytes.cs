@@ -19,7 +19,7 @@ namespace ExcelTool
                 //先写入行数，然后每一行的数据一次写入  小写类型、字符串
                 List<Tuple<string, string>> datas = new List<Tuple<string, string>>();
                 var tableData = ExcelHelper.ExcelDatas(fileName);
-                Tuple<string, string> rowCount = new Tuple<string, string>("int", tableData.CollonCount.ToString());
+                Tuple<string, string> rowCount = new Tuple<string, string>("int", tableData.RowCounts.ToString());
                 datas.Add(rowCount);
                 foreach (var row in tableData.Rows)
                 {

@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="avatarguideTest.cs" />
     <Compile Include="ConsoleHelper.cs" />
     <Compile Include="CsvHelper.cs" />
     <Compile Include="ExcelHelper.cs" />

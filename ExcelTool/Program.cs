@@ -80,8 +80,21 @@ namespace ExcelTool
                 {
                     File.Delete(genExcels[i]);
                 }
+
+                //读取测试
+                //IBinarySerializable newavList = new avatarguideTestConfig();
+                //var readOK = FileManager.ReadBinaryDataFromFile(Path.Combine(path, "avatarguideTest.bytes"), ref newavList);
+                //if (readOK)
+                //{
+                //    ConsoleHelper.WriteInfoLine(newavList.ToString());
+                //}
+                //else
+                //{
+                //    ConsoleHelper.WriteErrorLine("读取失败");
+                //}
                 Console.Read();
             }
         }
     }
 }
+
