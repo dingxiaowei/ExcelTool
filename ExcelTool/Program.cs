@@ -9,9 +9,15 @@ namespace ExcelTool
         static void Main(string[] args)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
-            if (args != null && args.Length >= 1)
+            string exportPath = "";
+            //TableExportFormat format = TableExportFormat.Bytes;
+            if (args != null && args.Length == 1)
             {
                 path = args[0];  //第一个是路径
+            }
+            if (args != null && args.Length == 2)
+            {
+                exportPath = args[1]; //第二个是输出路径
             }
             DirectoryInfo dirInfo = new DirectoryInfo(path);
             var csvs = dirInfo.GetFiles("*.csv", SearchOption.AllDirectories);
@@ -47,7 +53,7 @@ namespace ExcelTool
                 foreach (var file in excels)
                 {
                     //生成CS文件
-                    bool res = ExcelHelper.GenCSharpModel(file.FullName);
+                    bool res = GenModels.GenCSharpModel(file.FullName, exportPath);
                     if (res)
                     {
                         ConsoleHelper.WriteSuccessLine($"{file.Name}CS模板生成成功");
@@ -58,7 +64,7 @@ namespace ExcelTool
                     }
 
                     //生成二进制文件，如果list或者vector数据为空则写入0，要根据类型来读取csv的字段数据强转成对应的数据类型然后写入
-                    res = ExcelHelper.GenBinaryData(file.FullName);
+                    res = TableExcelExportBytes.ExportToFile(file.FullName, exportPath);
                     if (res)
                     {
                         ConsoleHelper.WriteSuccessLine($"{file.Name}二进制数据生成成功");
