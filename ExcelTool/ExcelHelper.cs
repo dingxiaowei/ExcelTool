@@ -23,7 +23,7 @@ namespace ExcelTool
                 var descRow = sheet.GetRow(1);//读取注释
                 for (int j = 0; j < row.LastCellNum; j++)
                 {
-                    string value = row.GetCell(j).ToString().Replace(" ", "");
+                    string value = row.GetCell(j).ToString();
                     var descValue = descRow.GetCell(j) == null ? "" : descRow.GetCell(j).ToString();
                     var array = value.Split(',');
                     if (array.Length != 2)
@@ -67,7 +67,7 @@ namespace ExcelTool
                     {
                         var cellValue = row.GetCell(j);
                         if (cellValue != null)
-                            tableExcelRow.Add(row.GetCell(j).ToString().Replace(" ", ""));
+                            tableExcelRow.Add(row.GetCell(j).ToString());
                         else
                             tableExcelRow.Add("");
                     }

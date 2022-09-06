@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace ExcelTool
 {
@@ -87,6 +88,8 @@ namespace ExcelTool
                 //if (readOK)
                 //{
                 //    ConsoleHelper.WriteInfoLine(newavList.ToString());
+                //    var d = (newavList as avatarguideTestConfig).QueryById(1).ToList();
+                //    ConsoleHelper.WriteInfoLine(d[0].gender);
                 //}
                 //else
                 //{
