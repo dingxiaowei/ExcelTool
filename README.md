@@ -204,7 +204,7 @@ else
     ConsoleHelper.WriteErrorLine("读取失败");
 }
 ```
-![f72a068ec36233ddf1e97f9e401c0ce8_890x514.png@900-0-90-f.png](http://image.huawei.com/tiny-lts/v1/images/f72a068ec36233ddf1e97f9e401c0ce8_890x514.png@900-0-90-f.png)
+![](img/3.jpg)
 
 ##### Unity解析二进制
 将二进制文件(后缀必须是.bytes)放在Resources目录，然后通过Resources.Load接口加载
