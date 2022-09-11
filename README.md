@@ -231,6 +231,28 @@ else
    Debug.LogError("数据读取错误");
 }
 ```
+
+#### 泛型读表
+```
+T ReadTable<T>(string tableName) where T : IBinarySerializable, new()
+{
+var bytes = LoadTextAsset(tableName);
+if (bytes != null)
+{
+    IBinarySerializable data = new T();
+    var readOK = FileManager.ReadBinaryDataFromBytes(bytes.bytes, ref data);
+    if (readOK)
+    {
+	return (T)data;
+    }
+    else
+    {
+	Debug.LogError($"{tableName}解析出错  类型{typeof(T)}");
+    }
+}
+return default(T);
+}
+```
 ##### 查询数据
 ```
 var avatarguideTest = (avatarguideTestConfig)newavList;
