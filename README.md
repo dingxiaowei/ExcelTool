@@ -271,4 +271,5 @@ https://github.com/dingxiaowei/ExcelTool  喜欢麻烦点个star吧
 
 #### Unity客户端使用范例
 采用的美术效果机型适配商业化解决方案Demo
-https://github.com/dingxiaowei/DeviceGrading，优雅的表格使用范本
+https://github.com/dingxiaowei/DeviceGrading
+优雅的表格使用范本
