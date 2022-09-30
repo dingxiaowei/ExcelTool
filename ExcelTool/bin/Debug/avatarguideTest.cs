@@ -9,7 +9,7 @@ using System.Text;
 using System.Linq;
 
 [Serializable]
-public class avatarguideTest : IBinarySerializable
+public partial class avatarguideTest : IBinarySerializable
 {
 	/// <summary>
 	/// ÐòºÅ

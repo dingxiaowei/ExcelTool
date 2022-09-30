@@ -177,16 +177,16 @@ public partial class avatarguideTestConfig : IBinarySerializable
 					select d;
 		return datas;
 	}
-	
+
 	public override string ToString()
-    {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < avatarguideTestInfos.Count; i++)
         {
-            sb.Append($"{avatarguideTestInfos[i].ToString()}\n");
+	        StringBuilder sb = new StringBuilder();
+	        for (int i = 0; i < avatarguideTestInfos.Count; i++)
+	        {
+	            sb.Append($"{avatarguideTestInfos[i].ToString()}\n");
+	        }
+	        return sb.ToString();
         }
-        return sb.ToString();
-    }
 }
 ```
 
@@ -282,11 +282,12 @@ pause
 #### 待扩展的功能
 目前还不是最理想的状态，还有很多可以扩展完善的功能，如下：
 
-* 支持生成各种类型的文件，例如json、xml、proto等
+* 支持生成各种类型的文件，例如json、xml、proto、lua等
 * 支持生成各种语法的模板代码
 * 支持Excel数据配置规范性检测，例如手误配置不符合规范导致加载异常，例如大小写逗号(肉眼容易忽略)，或者空格等等
 * 支持Excel字段客户端服务器可选项
 * 支持更多自定义数据类型扩展
+* 支持枚举类型
 
 #### 代码
 https://github.com/dingxiaowei/ExcelTool  喜欢麻烦点个star吧

@@ -9,7 +9,7 @@ using System.Text;
 using System.Linq;
 
 [Serializable]
-public class official_room : IBinarySerializable
+public partial class official_room : IBinarySerializable
 {
 	/// <summary>
 	/// ÐòºÅ
