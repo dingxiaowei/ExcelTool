@@ -70,7 +70,6 @@
     <Compile Include="Extend.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="IBinarySerializable.cs" />
-    <Compile Include="official_room.cs" />
     <Compile Include="Parser\GenModels.cs" />
     <Compile Include="Parser\TableExcelData.cs" />
     <Compile Include="Parser\TableExcelExportBytes.cs" />
