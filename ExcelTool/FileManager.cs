@@ -157,7 +157,7 @@ namespace ExcelTool
                                     }
                                 }
                             }
-                            else if (data.Item1.Equals("list"))
+                            else if (data.Item1.Equals("list")) //List<Vector>类型
                             {
                                 //[[1.2,3.4,5.6],[2.2,3.4,5.6],[3.2,3.4,5.6]]
                                 string str = data.Item2.ToString();
@@ -175,6 +175,60 @@ namespace ExcelTool
                                         if (i % 3 == 0)
                                             bw.Write(Convert.ToInt32(3));
                                         bw.Write(Convert.ToSingle(numStrs[i]));
+                                    }
+                                }
+                            }
+                            else if (data.Item1.Contains("list<")) //泛型数组类型
+                            {
+                                string str = data.Item2.ToString();
+                                if (string.IsNullOrEmpty(str))
+                                {
+                                    bw.Write(Convert.ToInt32(0));
+                                }
+                                else
+                                {
+                                    var numStrs = str.Split(',');
+                                    bw.Write(numStrs.Length);
+                                    var tempS = data.Item1.Substring(5);
+                                    var listType = tempS.Substring(0, tempS.Length - 1);
+                                    if (listType.Equals("int"))
+                                    {
+                                        for (int i = 0; i < numStrs.Length; i++)
+                                        {
+                                            bw.Write(Convert.ToInt32(numStrs[i]));
+                                        }
+                                    }
+                                    else if (listType.Equals("bool"))
+                                    {
+                                        for (int i = 0; i < numStrs.Length; i++)
+                                        {
+                                            bw.Write(Convert.ToBoolean(numStrs[i]));
+                                        }
+                                    }
+                                    else if (listType.Equals("float"))
+                                    {
+                                        for (int i = 0; i < numStrs.Length; i++)
+                                        {
+                                            bw.Write(Convert.ToSingle(numStrs[i]));
+                                        }
+                                    }
+                                    else if (listType.Equals("long"))
+                                    {
+                                        for (int i = 0; i < numStrs.Length; i++)
+                                        {
+                                            bw.Write(Convert.ToInt64(numStrs[i]));
+                                        }
+                                    }
+                                    else if (listType.Equals("string"))
+                                    {
+                                        for (int i = 0; i < numStrs.Length; i++)
+                                        {
+                                            bw.Write(Convert.ToString(numStrs[i]));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ConsoleHelper.WriteErrorLine("数组类型List<T>,T不是支持的Int,Float,String这三种类型，需要扩展类型");
                                     }
                                 }
                             }

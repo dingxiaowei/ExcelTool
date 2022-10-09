@@ -71,6 +71,10 @@ public partial class official_room : IBinarySerializable
 	/// 
 	/// </summary>
 	public List<float> Offset { get; set; }
+	/// <summary>
+	/// ²âÊÔÊı×é
+	/// </summary>
+	public List<int> IntList { get; set; }
 
 	public void DeSerialize(BinaryReader reader)
 	{
@@ -113,6 +117,19 @@ public partial class official_room : IBinarySerializable
 		{
 			Offset = null;
 		}
+		var IntListCount = reader.ReadInt32();
+		if (IntListCount > 0)
+		{
+			IntList = new List<int>();
+			for (int i = 0; i < IntListCount; i++)
+			{
+				IntList.Add(reader.ReadInt32());
+			}
+		}
+		else
+		{
+			IntList = null;
+		}
 	}
 
 	public void Serialize(BinaryWriter writer)
@@ -152,6 +169,18 @@ public partial class official_room : IBinarySerializable
 			for (int i = 0; i < Offset.Count; i++)
 			{
 				writer.Write(Offset[i]);
+			}
+		}
+		if (IntList == null || IntList.Count == 0)
+		{
+			writer.Write(0);
+		}
+		else
+		{
+			writer.Write(IntList.Count);
+			for (int i = 0; i < IntList.Count; i++)
+			{
+				writer.Write(IntList[i]);
 			}
 		}
 	}

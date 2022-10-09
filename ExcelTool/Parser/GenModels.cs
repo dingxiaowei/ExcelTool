@@ -50,6 +50,35 @@ namespace ExcelTool
                     {
                         sb.Append(string.Format("\tpublic List<List<float>> {0}", headers[i].FieldName));
                     }
+                    else if (type.Contains("list<"))
+                    {
+                        var tempS = type.Substring(5);
+                        var newType = tempS.Substring(0, tempS.Length - 1);
+                        if (newType.Equals("int"))
+                        {
+                            sb.Append(string.Format("\tpublic List<int> {0}", headers[i].FieldName));
+                        }
+                        else if (newType.Equals("bool"))
+                        {
+                            sb.Append(string.Format("\tpublic List<bool> {0}", headers[i].FieldName));
+                        }
+                        else if (newType.Equals("float"))
+                        {
+                            sb.Append(string.Format("\tpublic List<float> {0}", headers[i].FieldName));
+                        }
+                        else if (newType.Equals("long"))
+                        {
+                            sb.Append(string.Format("\tpublic List<long> {0}", headers[i].FieldName));
+                        }
+                        else if (newType.Equals("string"))
+                        {
+                            sb.Append(string.Format("\tpublic List<string> {0}", headers[i].FieldName));
+                        }
+                        else
+                        {
+                            ConsoleHelper.WriteErrorLine("数组类型List<T>，T类型不支持");
+                        }
+                    }
                     else
                     {
                         sb.Append(string.Format("\tpublic {0} {1}", headers[i].FieldType.ToLower(), headers[i].FieldName));
@@ -116,6 +145,59 @@ namespace ExcelTool
                         sb.Append($"\t\t\t{name} = null;\n");
                         sb.Append("\t\t}\n");
                     }
+                    else if (type.Contains("list<"))
+                    {
+                        var tempS = type.Substring(5);
+                        var listTType = tempS.Substring(0, tempS.Length - 1);
+                        sb.Append($"\t\tvar {name}Count = reader.ReadInt32();\n");
+                        sb.Append($"\t\tif ({name}Count > 0)\n");
+                        sb.Append("\t\t{\n");
+                        if (listTType.Equals("int"))
+                        {
+                            sb.Append($"\t\t\t{name} = new List<int>();\n");
+                            sb.Append($"\t\t\tfor (int i = 0; i < {name}Count; i++)\n");
+                            sb.Append("\t\t\t{\n");
+                            sb.Append($"\t\t\t\t{name}.Add(reader.ReadInt32());\n");
+                        }
+                        else if (listTType.Equals("bool"))
+                        {
+                            sb.Append($"\t\t\t{name} = new List<bool>();\n");
+                            sb.Append($"\t\t\tfor (int i = 0; i < {name}Count; i++)\n");
+                            sb.Append("\t\t\t{\n");
+                            sb.Append($"\t\t\t\t{name}.Add(reader.ReadBoolean());\n");
+                        }
+                        else if (listTType.Equals("float"))
+                        {
+                            sb.Append($"\t\t\t{name} = new List<float>();\n");
+                            sb.Append($"\t\t\tfor (int i = 0; i < {name}Count; i++)\n");
+                            sb.Append("\t\t\t{\n");
+                            sb.Append($"\t\t\t\t{name}.Add(reader.ReadSingle());\n");
+                        }
+                        else if (listTType.Equals("long"))
+                        {
+                            sb.Append($"\t\t\t{name} = new List<long>();\n");
+                            sb.Append($"\t\t\tfor (int i = 0; i < {name}Count; i++)\n");
+                            sb.Append("\t\t\t{\n");
+                            sb.Append($"\t\t\t\t{name}.Add(reader.ReadInt64());\n");
+                        }
+                        else if (listTType.Equals("string"))
+                        {
+                            sb.Append($"\t\t\t{name} = new List<string>();\n");
+                            sb.Append($"\t\t\tfor (int i = 0; i < {name}Count; i++)\n");
+                            sb.Append("\t\t\t{\n");
+                            sb.Append($"\t\t\t\t{name}.Add(reader.ReadString());\n");
+                        }
+                        else
+                        {
+                            ConsoleHelper.WriteErrorLine("数组泛型T不是指定类型");
+                        }
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\t{name} = null;\n");
+                        sb.Append("\t\t}\n");
+                    }
                     else
                     {
                         ConsoleHelper.WriteErrorLine($"类型:{type}没有解析 {fileName}处理异常");
@@ -166,6 +248,47 @@ namespace ExcelTool
                         sb.Append("\t\t\t\t}\n");
                         sb.Append("\t\t\t}\n");
                         sb.Append("\t\t}\n");
+                    }
+                    else if (type.Contains("list<"))
+                    {
+                        var tempS = type.Substring(5);
+                        var listTType = tempS.Substring(0, tempS.Length - 1);
+                        sb.Append($"\t\tif ({name} == null || {name}.Count == 0)\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append("\t\t\twriter.Write(0);\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\twriter.Write({name}.Count);\n");
+                        sb.Append($"\t\t\tfor (int i = 0; i < {name}.Count; i++)\n");
+                        sb.Append("\t\t\t{\n");
+                        sb.Append($"\t\t\t\twriter.Write({name}[i]);\n");
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                        //if (listTType.Equals("int"))
+                        //{
+
+                        //}
+                        //else if (listTType.Equals("bool"))
+                        //{
+
+                        //}
+                        //else if (listTType.Equals("float"))
+                        //{
+
+                        //}
+                        //else if (listTType.Equals("long"))
+                        //{
+
+                        //}
+                        //else if (listTType.Equals("string"))
+                        //{
+
+                        //}
+                        //else
+                        //{
+                        //    ConsoleHelper.WriteErrorLine("数组泛型T不是指定类型");
+                        //}
                     }
                     else
                     {

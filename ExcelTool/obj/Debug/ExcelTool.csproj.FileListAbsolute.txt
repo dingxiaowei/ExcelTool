@@ -51,3 +51,4 @@ D:\Study\github\ExcelTool\ExcelTool\obj\Debug\ExcelTool.csproj.CoreCompileInputs
 D:\Study\github\ExcelTool\ExcelTool\obj\Debug\ExcelTool.csproj.CopyComplete
 D:\Study\github\ExcelTool\ExcelTool\obj\Debug\ExcelTool.exe
 D:\Study\github\ExcelTool\ExcelTool\obj\Debug\ExcelTool.pdb
+D:\study\github\ExcelTool\ExcelTool\obj\Debug\ExcelTool.csprojAssemblyReference.cache
