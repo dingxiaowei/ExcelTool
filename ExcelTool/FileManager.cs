@@ -178,6 +178,91 @@ namespace ExcelTool
                                     }
                                 }
                             }
+                            else if (data.Item1.Equals("intlist"))
+                            {
+                                string str = data.Item2.ToString();
+                                if (string.IsNullOrEmpty(str))
+                                {
+                                    bw.Write(Convert.ToInt32(0));
+                                }
+                                else
+                                {
+                                    var numStrs = str.Split(',');
+                                    bw.Write(numStrs.Length);
+                                    for (int i = 0; i < numStrs.Length; i++)
+                                    {
+                                        bw.Write(Convert.ToInt32(numStrs[i]));
+                                    }
+                                }
+                            }
+                            else if (data.Item1.Equals("floatlist"))
+                            {
+                                string str = data.Item2.ToString();
+                                if (string.IsNullOrEmpty(str))
+                                {
+                                    bw.Write(Convert.ToInt32(0));
+                                }
+                                else
+                                {
+                                    var numStrs = str.Split(',');
+                                    bw.Write(numStrs.Length);
+                                    for (int i = 0; i < numStrs.Length; i++)
+                                    {
+                                        bw.Write(Convert.ToSingle(numStrs[i]));
+                                    }
+                                }
+                            }
+                            else if (data.Item1.Equals("boollist"))
+                            {
+                                string str = data.Item2.ToString();
+                                if (string.IsNullOrEmpty(str))
+                                {
+                                    bw.Write(Convert.ToInt32(0));
+                                }
+                                else
+                                {
+                                    var numStrs = str.Split(',');
+                                    bw.Write(numStrs.Length);
+                                    for (int i = 0; i < numStrs.Length; i++)
+                                    {
+                                        bw.Write(Convert.ToBoolean(numStrs[i]));
+                                    }
+                                }
+                            }
+                            else if (data.Item1.Equals("stringlist"))
+                            {
+                                string str = data.Item2.ToString();
+                                if (string.IsNullOrEmpty(str))
+                                {
+                                    bw.Write(Convert.ToInt32(0));
+                                }
+                                else
+                                {
+                                    var numStrs = str.Split(',');
+                                    bw.Write(numStrs.Length);
+                                    for (int i = 0; i < numStrs.Length; i++)
+                                    {
+                                        bw.Write(numStrs[i]);
+                                    }
+                                }
+                            }
+                            else if (data.Item1.Equals("longlist"))
+                            {
+                                string str = data.Item2.ToString();
+                                if (string.IsNullOrEmpty(str))
+                                {
+                                    bw.Write(Convert.ToInt32(0));
+                                }
+                                else
+                                {
+                                    var numStrs = str.Split(',');
+                                    bw.Write(numStrs.Length);
+                                    for (int i = 0; i < numStrs.Length; i++)
+                                    {
+                                        bw.Write(Convert.ToInt64(numStrs[i]));
+                                    }
+                                }
+                            }
                             else if (data.Item1.Contains("list<")) //泛型数组类型
                             {
                                 string str = data.Item2.ToString();

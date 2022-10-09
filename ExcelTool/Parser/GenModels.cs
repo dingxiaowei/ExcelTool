@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ExcelTool
 {
@@ -49,6 +46,26 @@ namespace ExcelTool
                     else if (type.Equals("list"))
                     {
                         sb.Append(string.Format("\tpublic List<List<float>> {0}", headers[i].FieldName));
+                    }
+                    else if (type.Equals("intlist"))
+                    {
+                        sb.Append(string.Format("\tpublic List<int> {0}", headers[i].FieldName));
+                    }
+                    else if (type.Equals("boollist"))
+                    {
+                        sb.Append(string.Format("\tpublic List<bool> {0}", headers[i].FieldName));
+                    }
+                    else if (type.Equals("floatlist"))
+                    {
+                        sb.Append(string.Format("\tpublic List<float> {0}", headers[i].FieldName));
+                    }
+                    else if (type.Equals("stringlist"))
+                    {
+                        sb.Append(string.Format("\tpublic List<string> {0}", headers[i].FieldName));
+                    }
+                    else if (type.Equals("longlist"))
+                    {
+                        sb.Append(string.Format("\tpublic List<long> {0}", headers[i].FieldName));
                     }
                     else if (type.Contains("list<"))
                     {
@@ -138,6 +155,86 @@ namespace ExcelTool
                         sb.Append($"\t\t\t\t\ttempList.Add(reader.ReadSingle());\n");
                         sb.Append("\t\t\t\t}\n");
                         sb.Append($"\t\t\t\t{name}.Add(tempList);\n");
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\t{name} = null;\n");
+                        sb.Append("\t\t}\n");
+                    }
+                    else if (type.Equals("intlist"))
+                    {
+                        sb.Append($"\t\tvar {name}Count = reader.ReadInt32();\n");
+                        sb.Append($"\t\tif ({name}Count > 0)\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\t{name} = new List<int>();\n");
+                        sb.Append($"\t\t\tfor (int i = 0; i < {name}Count; i++)\n");
+                        sb.Append("\t\t\t{\n");
+                        sb.Append($"\t\t\t\t{name}.Add(reader.ReadInt32());\n");
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\t{name} = null;\n");
+                        sb.Append("\t\t}\n");
+                    }
+                    else if (type.Equals("boollist"))
+                    {
+                        sb.Append($"\t\tvar {name}Count = reader.ReadInt32();\n");
+                        sb.Append($"\t\tif ({name}Count > 0)\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\t{name} = new List<bool>();\n");
+                        sb.Append($"\t\t\tfor (int i = 0; i < {name}Count; i++)\n");
+                        sb.Append("\t\t\t{\n");
+                        sb.Append($"\t\t\t\t{name}.Add(reader.ReadBoolean());\n");
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\t{name} = null;\n");
+                        sb.Append("\t\t}\n");
+                    }
+                    else if (type.Equals("floatlist"))
+                    {
+                        sb.Append($"\t\tvar {name}Count = reader.ReadInt32();\n");
+                        sb.Append($"\t\tif ({name}Count > 0)\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\t{name} = new List<float>();\n");
+                        sb.Append($"\t\t\tfor (int i = 0; i < {name}Count; i++)\n");
+                        sb.Append("\t\t\t{\n");
+                        sb.Append($"\t\t\t\t{name}.Add(reader.ReadSingle());\n");
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\t{name} = null;\n");
+                        sb.Append("\t\t}\n");
+                    }
+                    else if (type.Equals("stringlist"))
+                    {
+                        sb.Append($"\t\tvar {name}Count = reader.ReadInt32();\n");
+                        sb.Append($"\t\tif ({name}Count > 0)\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\t{name} = new List<string>();\n");
+                        sb.Append($"\t\t\tfor (int i = 0; i < {name}Count; i++)\n");
+                        sb.Append("\t\t\t{\n");
+                        sb.Append($"\t\t\t\t{name}.Add(reader.ReadString());\n");
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\t{name} = null;\n");
+                        sb.Append("\t\t}\n");
+                    }
+                    else if (type.Equals("longlist"))
+                    {
+                        sb.Append($"\t\tvar {name}Count = reader.ReadInt32();\n");
+                        sb.Append($"\t\tif ({name}Count > 0)\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\t{name} = new List<long>();\n");
+                        sb.Append($"\t\t\tfor (int i = 0; i < {name}Count; i++)\n");
+                        sb.Append("\t\t\t{\n");
+                        sb.Append($"\t\t\t\t{name}.Add(reader.ReadInt64());\n");
                         sb.Append("\t\t\t}\n");
                         sb.Append("\t\t}\n");
                         sb.Append("\t\telse\n");
@@ -249,6 +346,81 @@ namespace ExcelTool
                         sb.Append("\t\t\t}\n");
                         sb.Append("\t\t}\n");
                     }
+                    else if (type.Equals("intlist"))
+                    {
+                        sb.Append($"\t\tif ({name} == null || {name}.Count == 0)\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append("\t\t\twriter.Write(0);\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\twriter.Write({name}.Count);\n");
+                        sb.Append($"\t\t\tfor (int i = 0; i < {name}.Count; i++)\n");
+                        sb.Append("\t\t\t{\n");
+                        sb.Append($"\t\t\t\twriter.Write({name}[i]);\n");
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                    }
+                    else if (type.Equals("boollist"))
+                    {
+                        sb.Append($"\t\tif ({name} == null || {name}.Count == 0)\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append("\t\t\twriter.Write(0);\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\twriter.Write({name}.Count);\n");
+                        sb.Append($"\t\t\tfor (int i = 0; i < {name}.Count; i++)\n");
+                        sb.Append("\t\t\t{\n");
+                        sb.Append($"\t\t\t\twriter.Write({name}[i]);\n");
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                    }
+                    else if (type.Equals("floatlist"))
+                    {
+                        sb.Append($"\t\tif ({name} == null || {name}.Count == 0)\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append("\t\t\twriter.Write(0);\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\twriter.Write({name}.Count);\n");
+                        sb.Append($"\t\t\tfor (int i = 0; i < {name}.Count; i++)\n");
+                        sb.Append("\t\t\t{\n");
+                        sb.Append($"\t\t\t\twriter.Write({name}[i]);\n");
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                    }
+                    else if (type.Equals("longlist"))
+                    {
+                        sb.Append($"\t\tif ({name} == null || {name}.Count == 0)\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append("\t\t\twriter.Write(0);\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\twriter.Write({name}.Count);\n");
+                        sb.Append($"\t\t\tfor (int i = 0; i < {name}.Count; i++)\n");
+                        sb.Append("\t\t\t{\n");
+                        sb.Append($"\t\t\t\twriter.Write({name}[i]);\n");
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                    }
+                    else if (type.Equals("stringlist"))
+                    {
+                        sb.Append($"\t\tif ({name} == null || {name}.Count == 0)\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append("\t\t\twriter.Write(0);\n");
+                        sb.Append("\t\t}\n");
+                        sb.Append("\t\telse\n");
+                        sb.Append("\t\t{\n");
+                        sb.Append($"\t\t\twriter.Write({name}.Count);\n");
+                        sb.Append($"\t\t\tfor (int i = 0; i < {name}.Count; i++)\n");
+                        sb.Append("\t\t\t{\n");
+                        sb.Append($"\t\t\t\twriter.Write({name}[i]);\n");
+                        sb.Append("\t\t\t}\n");
+                        sb.Append("\t\t}\n");
+                    }
                     else if (type.Contains("list<"))
                     {
                         var tempS = type.Substring(5);
@@ -265,30 +437,30 @@ namespace ExcelTool
                         sb.Append($"\t\t\t\twriter.Write({name}[i]);\n");
                         sb.Append("\t\t\t}\n");
                         sb.Append("\t\t}\n");
-                        //if (listTType.Equals("int"))
-                        //{
+                        if (listTType.Equals("int"))
+                        {
 
-                        //}
-                        //else if (listTType.Equals("bool"))
-                        //{
+                        }
+                        else if (listTType.Equals("bool"))
+                        {
 
-                        //}
-                        //else if (listTType.Equals("float"))
-                        //{
+                        }
+                        else if (listTType.Equals("float"))
+                        {
 
-                        //}
-                        //else if (listTType.Equals("long"))
-                        //{
+                        }
+                        else if (listTType.Equals("long"))
+                        {
 
-                        //}
-                        //else if (listTType.Equals("string"))
-                        //{
+                        }
+                        else if (listTType.Equals("string"))
+                        {
 
-                        //}
-                        //else
-                        //{
-                        //    ConsoleHelper.WriteErrorLine("数组泛型T不是指定类型");
-                        //}
+                        }
+                        else
+                        {
+                            ConsoleHelper.WriteErrorLine("数组泛型T不是指定类型");
+                        }
                     }
                     else
                     {

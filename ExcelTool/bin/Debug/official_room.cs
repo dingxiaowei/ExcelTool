@@ -72,9 +72,13 @@ public partial class official_room : IBinarySerializable
 	/// </summary>
 	public List<float> Offset { get; set; }
 	/// <summary>
-	/// 测试数组
+	/// Int数组测试
 	/// </summary>
-	public List<int> IntList { get; set; }
+	public List<int> IntListAttr { get; set; }
+	/// <summary>
+	/// float数组测试
+	/// </summary>
+	public List<float> FloatListAttr { get; set; }
 
 	public void DeSerialize(BinaryReader reader)
 	{
@@ -117,18 +121,31 @@ public partial class official_room : IBinarySerializable
 		{
 			Offset = null;
 		}
-		var IntListCount = reader.ReadInt32();
-		if (IntListCount > 0)
+		var IntListAttrCount = reader.ReadInt32();
+		if (IntListAttrCount > 0)
 		{
-			IntList = new List<int>();
-			for (int i = 0; i < IntListCount; i++)
+			IntListAttr = new List<int>();
+			for (int i = 0; i < IntListAttrCount; i++)
 			{
-				IntList.Add(reader.ReadInt32());
+				IntListAttr.Add(reader.ReadInt32());
 			}
 		}
 		else
 		{
-			IntList = null;
+			IntListAttr = null;
+		}
+		var FloatListAttrCount = reader.ReadInt32();
+		if (FloatListAttrCount > 0)
+		{
+			FloatListAttr = new List<float>();
+			for (int i = 0; i < FloatListAttrCount; i++)
+			{
+				FloatListAttr.Add(reader.ReadSingle());
+			}
+		}
+		else
+		{
+			FloatListAttr = null;
 		}
 	}
 
@@ -171,16 +188,28 @@ public partial class official_room : IBinarySerializable
 				writer.Write(Offset[i]);
 			}
 		}
-		if (IntList == null || IntList.Count == 0)
+		if (IntListAttr == null || IntListAttr.Count == 0)
 		{
 			writer.Write(0);
 		}
 		else
 		{
-			writer.Write(IntList.Count);
-			for (int i = 0; i < IntList.Count; i++)
+			writer.Write(IntListAttr.Count);
+			for (int i = 0; i < IntListAttr.Count; i++)
 			{
-				writer.Write(IntList[i]);
+				writer.Write(IntListAttr[i]);
+			}
+		}
+		if (FloatListAttr == null || FloatListAttr.Count == 0)
+		{
+			writer.Write(0);
+		}
+		else
+		{
+			writer.Write(FloatListAttr.Count);
+			for (int i = 0; i < FloatListAttr.Count; i++)
+			{
+				writer.Write(FloatListAttr[i]);
 			}
 		}
 	}
