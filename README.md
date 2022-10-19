@@ -17,7 +17,7 @@
 * 字段不配置会使用默认数值
 
 #### 目前支持的字段
-* 常规的字段，例如int，float，string，bool，long,list,intlist,longlist,floatlist,boollist,List<int>,List<bool>,List<long>,List<string> 大小写不限
+* 常规的字段，例如int，float，string，bool，long,list,intlist,longlist,floatlist,boollist,List<T> 大小写不限
 * 支持自定义字段 vector，例如[1,2,3]
 * 支持自定义字段 list,其实是vector数组，例如[[1,2,3],[2,3,4],[4,5,6]]
 
