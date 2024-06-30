@@ -47,8 +47,7 @@ D:\Study\github\ExcelTool\ExcelTool\bin\Debug\Spire.XLS.dll
 D:\Study\github\ExcelTool\ExcelTool\bin\Debug\Microsoft.mshtml.dll
 D:\Study\github\ExcelTool\ExcelTool\bin\Debug\Spire.Pdf.xml
 D:\Study\github\ExcelTool\ExcelTool\bin\Debug\Spire.XLS.xml
-D:\Study\github\ExcelTool\ExcelTool\obj\Debug\ExcelTool.csproj.CoreCompileInputs.cache
 D:\Study\github\ExcelTool\ExcelTool\obj\Debug\ExcelTool.csproj.CopyComplete
 D:\Study\github\ExcelTool\ExcelTool\obj\Debug\ExcelTool.exe
 D:\Study\github\ExcelTool\ExcelTool\obj\Debug\ExcelTool.pdb
-D:\study\github\ExcelTool\ExcelTool\obj\Debug\ExcelTool.csprojAssemblyReference.cache
+D:\Study\GitHub\ExcelTool\ExcelTool\obj\Debug\ExcelTool.csproj.CoreCompileInputs.cache

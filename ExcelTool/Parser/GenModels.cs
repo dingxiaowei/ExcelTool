@@ -140,7 +140,7 @@ namespace ExcelTool
                         sb.Append($"\t\t\t{name} = null;\n");
                         sb.Append("\t\t}\n");
                     }
-                    else if (type.Equals("list"))
+                    else if (type.Equals("vectorlist"))
                     {
                         sb.Append($"\t\tvar {name}Count = reader.ReadInt32();\n");
                         sb.Append($"\t\tif ({name}Count > 0)\n");
@@ -327,7 +327,7 @@ namespace ExcelTool
                         sb.Append("\t\t\t}\n");
                         sb.Append("\t\t}\n");
                     }
-                    else if (type.Equals("list"))
+                    else if (type.Equals("vectorlist"))
                     {
                         sb.Append($"\t\tif ({name} == null || {name}.Count == 0)\n");
                         sb.Append("\t\t{\n");

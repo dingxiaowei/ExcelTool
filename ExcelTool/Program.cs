@@ -11,6 +11,7 @@ namespace ExcelTool
         {
             string path = AppDomain.CurrentDomain.BaseDirectory;
             string exportPath = "";
+
             //TableExportFormat format = TableExportFormat.Bytes;
             if (args != null && args.Length == 1)
             {
@@ -95,6 +96,7 @@ namespace ExcelTool
                 //{
                 //    ConsoleHelper.WriteErrorLine("读取失败");
                 //}
+
                 Console.Read();
             }
         }

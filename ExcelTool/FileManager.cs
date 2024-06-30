@@ -157,7 +157,7 @@ namespace ExcelTool
                                     }
                                 }
                             }
-                            else if (data.Item1.Equals("list")) //List<Vector>类型
+                            else if (data.Item1.Equals("vectorlist")) //List<Vector>类型
                             {
                                 //[[1.2,3.4,5.6],[2.2,3.4,5.6],[3.2,3.4,5.6]]
                                 string str = data.Item2.ToString();
