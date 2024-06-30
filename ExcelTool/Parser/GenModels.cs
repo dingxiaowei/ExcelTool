@@ -43,7 +43,7 @@ namespace ExcelTool
                     {
                         sb.Append(string.Format("\tpublic List<float> {0}", headers[i].FieldName));
                     }
-                    else if (type.Equals("list"))
+                    else if (type.Equals("vectorlist"))
                     {
                         sb.Append(string.Format("\tpublic List<List<float>> {0}", headers[i].FieldName));
                     }

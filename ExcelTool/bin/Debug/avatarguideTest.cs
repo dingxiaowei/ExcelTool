@@ -34,7 +34,7 @@ public partial class avatarguideTest : IBinarySerializable
 	/// <summary>
 	/// Иёзг
 	/// </summary>
-	public vectorlist Grid { get; set; }
+	public List<List<float>> Grid { get; set; }
 
 	public void DeSerialize(BinaryReader reader)
 	{

@@ -30,7 +30,7 @@ public partial class battleScene : IBinarySerializable
 	/// <summary>
 	/// 出生点vector列表
 	/// </summary>
-	public vectorlist EnemyBornPoints { get; set; }
+	public List<List<float>> EnemyBornPoints { get; set; }
 	/// <summary>
 	/// 出生点对应的小怪id
 	/// </summary>
