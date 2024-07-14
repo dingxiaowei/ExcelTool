@@ -166,11 +166,11 @@ public partial class battleSceneConfig : IBinarySerializable
 		}
 	}
 
-	public IEnumerable<battleScene> QueryById(int id)
+	public battleScene QueryById(int id)
 	{
 		var datas = from d in battleSceneInfos
 					where d.Id == id
 					select d;
-		return datas;
+		return datas.FirstOrDefault();
 	}
 }

@@ -495,12 +495,12 @@ namespace ExcelTool
                 sb.Append($"\t\t\t{excelName}Infos[i].Serialize(writer);\n");
                 sb.Append("\t\t}\n");
                 sb.Append("\t}\n\n");
-                sb.Append($"\tpublic IEnumerable<{excelName}> QueryById(int id)\n");
+                sb.Append($"\tpublic {excelName} QueryById(int id)\n");
                 sb.Append("\t{\n");
                 sb.Append($"\t\tvar datas = from d in {excelName}Infos\n");
                 sb.Append($"\t\t\t\t\twhere d.Id == id\n");
                 sb.Append($"\t\t\t\t\tselect d;\n");
-                sb.Append("\t\treturn datas;\n");
+                sb.Append("\t\treturn datas.First();\n");
                 sb.Append("\t}\n");
                 sb.Append("}\n");
                 FileManager.WriteToFile(Path.Combine(outputDir, $"{excelName}.cs"), sb.ToString());

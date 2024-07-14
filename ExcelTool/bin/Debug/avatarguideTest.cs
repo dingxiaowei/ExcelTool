@@ -137,11 +137,11 @@ public partial class avatarguideTestConfig : IBinarySerializable
 		}
 	}
 
-	public IEnumerable<avatarguideTest> QueryById(int id)
+	public avatarguideTest QueryById(int id)
 	{
 		var datas = from d in avatarguideTestInfos
 					where d.Id == id
 					select d;
-		return datas;
+		return datas.FirstOrDefault();
 	}
 }

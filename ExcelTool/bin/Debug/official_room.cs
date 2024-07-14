@@ -239,11 +239,11 @@ public partial class official_roomConfig : IBinarySerializable
 		}
 	}
 
-	public IEnumerable<official_room> QueryById(int id)
+	public official_room QueryById(int id)
 	{
 		var datas = from d in official_roomInfos
 					where d.Id == id
 					select d;
-		return datas;
+		return datas.FirstOrDefault();
 	}
 }
