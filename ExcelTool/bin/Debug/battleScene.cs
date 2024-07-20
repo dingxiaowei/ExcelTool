@@ -6,7 +6,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
-using System.Linq;
 
 [Serializable]
 public partial class battleScene : IBinarySerializable
@@ -145,7 +144,7 @@ public partial class battleScene : IBinarySerializable
 [Serializable]
 public partial class battleSceneConfig : IBinarySerializable
 {
-	public List<battleScene> battleSceneInfos = new List<battleScene>();
+	Dictionary<int,battleScene> battleSceneInfos = new Dictionary<int,battleScene>();
 	public void DeSerialize(BinaryReader reader)
 	{
 		int count = reader.ReadInt32();
@@ -153,7 +152,7 @@ public partial class battleSceneConfig : IBinarySerializable
 		{
 			battleScene tempData = new battleScene();
 			tempData.DeSerialize(reader);
-			battleSceneInfos.Add(tempData);
+			battleSceneInfos.Add(tempData.Id, tempData);
 		}
 	}
 
@@ -168,9 +167,9 @@ public partial class battleSceneConfig : IBinarySerializable
 
 	public battleScene QueryById(int id)
 	{
-		var datas = from d in battleSceneInfos
-					where d.Id == id
-					select d;
-		return datas.FirstOrDefault();
+		if (battleSceneInfos.ContainsKey(id))
+			return battleSceneInfos[id];
+		else
+			return null;
 	}
 }

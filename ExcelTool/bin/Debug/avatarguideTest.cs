@@ -6,7 +6,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
-using System.Linq;
 
 [Serializable]
 public partial class avatarguideTest : IBinarySerializable
@@ -116,7 +115,7 @@ public partial class avatarguideTest : IBinarySerializable
 [Serializable]
 public partial class avatarguideTestConfig : IBinarySerializable
 {
-	public List<avatarguideTest> avatarguideTestInfos = new List<avatarguideTest>();
+	Dictionary<int,avatarguideTest> avatarguideTestInfos = new Dictionary<int,avatarguideTest>();
 	public void DeSerialize(BinaryReader reader)
 	{
 		int count = reader.ReadInt32();
@@ -124,7 +123,7 @@ public partial class avatarguideTestConfig : IBinarySerializable
 		{
 			avatarguideTest tempData = new avatarguideTest();
 			tempData.DeSerialize(reader);
-			avatarguideTestInfos.Add(tempData);
+			avatarguideTestInfos.Add(tempData.Id, tempData);
 		}
 	}
 
@@ -139,9 +138,9 @@ public partial class avatarguideTestConfig : IBinarySerializable
 
 	public avatarguideTest QueryById(int id)
 	{
-		var datas = from d in avatarguideTestInfos
-					where d.Id == id
-					select d;
-		return datas.FirstOrDefault();
+		if (avatarguideTestInfos.ContainsKey(id))
+			return avatarguideTestInfos[id];
+		else
+			return null;
 	}
 }

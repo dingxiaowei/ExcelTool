@@ -6,7 +6,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
-using System.Linq;
 
 [Serializable]
 public partial class official_room : IBinarySerializable
@@ -218,7 +217,7 @@ public partial class official_room : IBinarySerializable
 [Serializable]
 public partial class official_roomConfig : IBinarySerializable
 {
-	public List<official_room> official_roomInfos = new List<official_room>();
+	Dictionary<int,official_room> official_roomInfos = new Dictionary<int,official_room>();
 	public void DeSerialize(BinaryReader reader)
 	{
 		int count = reader.ReadInt32();
@@ -226,7 +225,7 @@ public partial class official_roomConfig : IBinarySerializable
 		{
 			official_room tempData = new official_room();
 			tempData.DeSerialize(reader);
-			official_roomInfos.Add(tempData);
+			official_roomInfos.Add(tempData.Id, tempData);
 		}
 	}
 
@@ -241,9 +240,9 @@ public partial class official_roomConfig : IBinarySerializable
 
 	public official_room QueryById(int id)
 	{
-		var datas = from d in official_roomInfos
-					where d.Id == id
-					select d;
-		return datas.FirstOrDefault();
+		if (official_roomInfos.ContainsKey(id))
+			return official_roomInfos[id];
+		else
+			return null;
 	}
 }
