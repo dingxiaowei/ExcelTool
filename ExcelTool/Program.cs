@@ -83,6 +83,9 @@ namespace ExcelTool
                     File.Delete(genExcels[i]);
                 }
 
+                Dictionary<int, string> dics = new Dictionary<int, string>();
+                new List<string>(dics.Values);
+
                 //读取测试
                 //IBinarySerializable newavList = new avatarguideTestConfig();
                 //var readOK = FileManager.ReadBinaryDataFromFile(Path.Combine(path, "avatarguideTest.bytes"), ref newavList);

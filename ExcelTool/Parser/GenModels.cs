@@ -477,10 +477,13 @@ namespace ExcelTool
                 sb.Append("{\n");
                 // sb.Append($"\tpublic List<{excelName}> {excelName}Infos = new List<{excelName}>();\n");
                 sb.Append($"\tDictionary<int,{excelName}> {excelName}Infos = new Dictionary<int,{excelName}>();\n");
+                sb.Append($"\tList<{excelName}> {excelName}InfoList;\n");
                 sb.Append("\n");
                 sb.Append($"\tpublic List<{excelName}> {excelName}List()\n");
                 sb.Append("\t{\n");
-                sb.Append($"\t\treturn new List<{excelName}>({excelName}Infos.Values);\n");
+                sb.Append($"\t\tif ({excelName}InfoList == null)\n");
+                sb.Append($"\t\t\t{excelName}InfoList = new List<{excelName}>({excelName}Infos.Values);\n");
+                sb.Append($"\t\treturn {excelName}InfoList;\n");
                 sb.Append("\t}\n");
                 sb.Append("\n");
                 sb.Append($"\tpublic void DeSerialize(BinaryReader reader)\n");

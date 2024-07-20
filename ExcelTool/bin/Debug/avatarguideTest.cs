@@ -116,10 +116,13 @@ public partial class avatarguideTest : IBinarySerializable
 public partial class avatarguideTestConfig : IBinarySerializable
 {
 	Dictionary<int,avatarguideTest> avatarguideTestInfos = new Dictionary<int,avatarguideTest>();
+	List<avatarguideTest> avatarguideTestInfoList;
 
 	public List<avatarguideTest> avatarguideTestList()
 	{
-		return new List<avatarguideTest>(avatarguideTestInfos.Values);
+		if (avatarguideTestInfoList == null)
+			avatarguideTestInfoList = new List<avatarguideTest>(avatarguideTestInfos.Values);
+		return avatarguideTestInfoList;
 	}
 
 	public void DeSerialize(BinaryReader reader)

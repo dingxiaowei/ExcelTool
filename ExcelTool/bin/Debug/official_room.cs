@@ -218,10 +218,13 @@ public partial class official_room : IBinarySerializable
 public partial class official_roomConfig : IBinarySerializable
 {
 	Dictionary<int,official_room> official_roomInfos = new Dictionary<int,official_room>();
+	List<official_room> official_roomInfoList;
 
 	public List<official_room> official_roomList()
 	{
-		return new List<official_room>(official_roomInfos.Values);
+		if (official_roomInfoList == null)
+			official_roomInfoList = new List<official_room>(official_roomInfos.Values);
+		return official_roomInfoList;
 	}
 
 	public void DeSerialize(BinaryReader reader)
