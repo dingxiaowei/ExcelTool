@@ -116,6 +116,12 @@ public partial class avatarguideTest : IBinarySerializable
 public partial class avatarguideTestConfig : IBinarySerializable
 {
 	Dictionary<int,avatarguideTest> avatarguideTestInfos = new Dictionary<int,avatarguideTest>();
+
+	public List<avatarguideTest> avatarguideTestList()
+	{
+		return new List<avatarguideTest>(avatarguideTestInfos.Values);
+	}
+
 	public void DeSerialize(BinaryReader reader)
 	{
 		int count = reader.ReadInt32();

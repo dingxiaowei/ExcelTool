@@ -145,6 +145,12 @@ public partial class battleScene : IBinarySerializable
 public partial class battleSceneConfig : IBinarySerializable
 {
 	Dictionary<int,battleScene> battleSceneInfos = new Dictionary<int,battleScene>();
+
+	public List<battleScene> battleSceneList()
+	{
+		return new List<battleScene>(battleSceneInfos.Values);
+	}
+
 	public void DeSerialize(BinaryReader reader)
 	{
 		int count = reader.ReadInt32();
